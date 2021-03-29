@@ -17,7 +17,6 @@ var locations = [
 ];
 
 
-
 function getAPIdata() {
     // Set api token
     // Initialate map
@@ -32,34 +31,6 @@ function getAPIdata() {
     document.getElementById('fly').addEventListener('click', function () {
         nextLaunchPad(map);
     });
-
-    
-    fetch(request)
-    
-    .then(function(response) {
-        if(!response.ok) throw Error(response.statusText);
-        return response.json();
-    })
-    
-    .then(function(response) {
-        onAPISucces(response);  
-    })
-    
-    .catch(function (error) {
-        onAPIError(error);
-    });
-}
-
-
-function onAPISucces(response) {
-
-    // var catFactBox = document.getElementById('catFact');
-}
-
-function onAPIError(error) {
-    console.error('Request failed', error);
-    var map = document.getElementById('map');
-    map.className = 'hidden'; 
 }
 
 function nextLaunchPad(test){
@@ -71,8 +42,19 @@ function nextLaunchPad(test){
     }
        map.flyTo({
         center: [locations[i].lat, locations[i].lon],
-        essential: true // this animation is considered essential with respect to prefers-reduced-motion
+        essential: true
         });
+}
+
+function addLocation(){
+    x = locations.length;
+    newLat = document.getElementById('lat').value;
+    newLon = document.getElementById('lon').value;
+
+    locations[x] = {
+        lat: newLat,
+        lon: newLon
+    };
 }
 
 getAPIdata();
