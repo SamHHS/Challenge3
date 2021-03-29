@@ -1,4 +1,5 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtaGhzIiwiYSI6ImNrbWtqaXYxbTExcTcyd3E0MXZ1OGo5OGUifQ.8ETamLmQFeh7xm93DrwEKA';
+var i = 0;
 var locations = [
     {
         lat: 50,
@@ -15,17 +16,7 @@ var locations = [
 
 ];
 
-var i = 0;
-var j = 0;
-console.log(locations.length);
-console.log(locations[i].lat);
-    
 
-
-
-
-var count = 0;
-var prevCount = 0;
 
 function getAPIdata() {
     // Set api token
@@ -38,11 +29,8 @@ function getAPIdata() {
     zoom: 9
     });
 
-
     document.getElementById('fly').addEventListener('click', function () {
-    
         nextLaunchPad(map);
- 
     });
 
     
