@@ -42,7 +42,6 @@ function nextLaunchPad(){
 }
 
 function addLocation(){
-
     x = locations.length;
     newLat = document.getElementById('lat').value;
     newLon = document.getElementById('lon').value;
@@ -55,17 +54,17 @@ function addLocation(){
 }
 
 function goToLocation(clicked_value){
-    i = clicked_value;
-    console.log(i);
-    if(i < locations.length){
-        flyToLocation(i);
+    clicked_value = clicked_value;
+    console.log(clicked_value);
+    if(clicked_value < locations.length){
+        flyToLocation(clicked_value);
     } 
 }
 
 function flyToLocation(location){
-    i = location;
+    location = location;
     globalMap.flyTo({
-    center: [locations[i].lat, locations[i].lon],
+    center: [locations[location].lat, locations[location].lon],
     essential: true
     });
 }
@@ -77,13 +76,13 @@ function printAllBtn() {
 }
 
 function printNewBtn(n){
-    i = n;
+    n = n;
     var myDiv = document.getElementById('allBtn');
     var btn = document.createElement("button");
-    var t = document.createTextNode("loacation"+i);
+    var t = document.createTextNode("loacation"+n);
     btn.appendChild(t);
     btn.className = 'locationTest';
-    btn.value=i;
+    btn.value=n;
     btn.addEventListener('click', function () {
     goToLocation(this.value);
     });
