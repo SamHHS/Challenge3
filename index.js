@@ -25,10 +25,6 @@ function getAPIdata() {
     center: [locations[i].lat,locations[i].lon],
     zoom: 9
     });
-
-    document.getElementById('fly').addEventListener('click', function () {
-        nextLaunchPad();
-    });
     return map;
 }
 
@@ -73,18 +69,22 @@ function printAllBtn() {
     for (var i = 0; i < locations.length; i++) {
        printNewBtn(i);
     }
+
+    document.getElementById('fly').addEventListener('click', function () {
+        nextLaunchPad();
+    });
 }
 
 function printNewBtn(n){
     n = n;
     var myDiv = document.getElementById('allBtn');
     var btn = document.createElement("button");
-    var t = document.createTextNode("loacation"+n);
+    var t = document.createTextNode("loacation"+(n+1));
     btn.appendChild(t);
     btn.className = 'locationTest';
     btn.value=n;
     btn.addEventListener('click', function () {
-    goToLocation(this.value);
+        goToLocation(this.value);
     });
     myDiv.appendChild(btn);
 }
