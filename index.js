@@ -65,12 +65,12 @@ function flyToLocation(location){
 }
 
 function printAllBtn() {
-    for (var i = 0; i < locations.length; i++) {
-       printNewBtn(i);
-    }
     document.getElementById('fly').addEventListener('click', function () {
         nextLaunchPad();
     });
+    for (var i = 0; i < locations.length; i++) {
+       printNewBtn(i);
+    }
 }
 
 function printNewBtn(n){
