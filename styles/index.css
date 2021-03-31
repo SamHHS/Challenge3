@@ -2,9 +2,7 @@ html {
   box-sizing: border-box;
 }
 
-*, 
-*:before,
-*:after{
+*, *:before,*:after{
   box-sizing: inherit;
 }
 
@@ -78,7 +76,6 @@ color:black;
 .hidden {
   display: none;
 }
-
 
 #fly {
 display: block;
