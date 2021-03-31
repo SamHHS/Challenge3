@@ -16,12 +16,14 @@ var locations = [
 
 ];
 var globalMap = getAPIdata();
+printMarkers();
 printAllBtn();
+
 
 function getAPIdata() {
     var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    style: 'mapbox://styles/mapbox/outdoors-v11',
     center: [locations[i].lat,locations[i].lon],
     zoom: 9
     });
@@ -29,12 +31,8 @@ function getAPIdata() {
 }
 
 function nextLaunchPad(){
-    if(i >= locations.length-1){
-        i=0;
-    }else{
-        i++;
-    }
-       flyToLocation(i);
+    var test = (i>=locations.length) ? i=0 : i++;
+    flyToLocation(i);
 }
 
 function addLocation(){
@@ -47,6 +45,7 @@ function addLocation(){
         lon: newLon
     };
     printNewBtn(x);
+    generateMarker(x);
 }
 
 function goToLocation(clicked_value){
@@ -69,7 +68,6 @@ function printAllBtn() {
     for (var i = 0; i < locations.length; i++) {
        printNewBtn(i);
     }
-
     document.getElementById('fly').addEventListener('click', function () {
         nextLaunchPad();
     });
@@ -87,4 +85,18 @@ function printNewBtn(n){
         goToLocation(this.value);
     });
     myDiv.appendChild(btn);
+}
+
+function generateMarker(x){
+    x = x;
+    var marker = new mapboxgl.Marker()
+    .setLngLat([locations[x].lat, locations[x].lon])
+    .setPopup(new mapboxgl.Popup().setText(locations[x]))
+    .addTo(globalMap);
+}
+
+function printMarkers(){
+    for(var i = 0; i<locations.length;i++){
+        generateMarker(i);
+    }
 }
