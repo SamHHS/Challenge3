@@ -7,8 +7,8 @@ html {
 }
 
 *{
-    font-family: DDIN;
-    color: white;
+    font-family: D-DIN-Regular,Arial,Verdana,sans-serif;
+    color: black;
 }
 
 body{
@@ -37,7 +37,7 @@ nav{
 }
 
 nav ul {
-  float:left;
+  float
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -66,6 +66,10 @@ a:hover{
 color:black;
 }
 
+.locationTest{
+  float:right;
+}
+
 #logo{
   float:left;
   max-width:300px;
@@ -75,6 +79,14 @@ color:black;
 
 .hidden {
   display: none;
+}
+
+#place{
+  color:black;
+}
+
+.testStyle{
+  color:white;
 }
 
 #fly {
