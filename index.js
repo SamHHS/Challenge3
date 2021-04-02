@@ -18,7 +18,9 @@ var locations = [
     },
 
 ];
+var units = 'metric';
 var globalMap = getAPIdata();
+var globalWeather = getWeatherData(i);
 printMarkers();
 printAllBtn();
 
@@ -33,9 +35,33 @@ function getAPIdata() {
     return map;
 }
 
+function getWeatherData(LocationWeather){
+    i = LocationWeather;
+    console.log(locations[i].place);
+    var request = 'https://api.openweathermap.org/data/2.5/weather?lat='+locations[i].lon+'&lon='+locations[i].lon+'&appid=f07d064e82b0836d1d53f2e47c812e50&units='+units;
+    fetch(request)  
+    
+   
+    .then(function(response) {
+        return response.json();
+    })
+    
+   
+    .then(function(response) {
+    
+
+        var degC = Math.floor(response.main.temp);
+        console.log(degC);
+        var weatherBox = document.getElementById('weather');
+        weatherBox.innerHTML = degC + '&#176;C <br>';
+
+    });
+}
+
 function nextLaunchPad(){
     var test = (i>=locations.length) ? i=0 : i++;
     flyToLocation(i);
+    getWeatherData(i);
 }
 
 function addLocation(){
@@ -63,6 +89,7 @@ function goToLocation(clicked_value){
     console.log(clicked_value);
     if(clicked_value < locations.length){
         flyToLocation(clicked_value);
+        getWeatherData(clicked_value);
     } 
 }
 
@@ -84,12 +111,6 @@ function generateNewBtn(n){
     var t = document.createTextNode("location "+(n+1));
     var linebreak = document.createElement("br");
     var test = document.createTextNode(locations[n].place+" ");
-
-    //  var ul = document.getElementById("list");
-    // var li = document.createElement("li");
-    // li.appendChild(document.createTextNode("Four"));
-    // li.setAttribute("id", "element4"); // added line
-    // ul.appendChild(li);
     
     btn.appendChild(t);
     btn.className = 'locationTest';
