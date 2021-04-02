@@ -58,6 +58,13 @@ function getWeatherData(LocationWeather){
     });
 }
 
+function printAll(){
+    for(var i = 0; i<locations.length;i++){
+        generateMarker(i);
+        generateTable(i);
+    }
+}
+
 function goToLocation(clicked_value){
     var clicked_value = clicked_value;
     if(clicked_value < locations.length){
@@ -129,11 +136,4 @@ function generateMarker(x){
     .setLngLat([locations[x].lat, locations[x].lon])
     .setPopup(new mapboxgl.Popup().setText("location "+locations[x].place+" lat "+locations[x].lat + " lon " + locations[x].lon))
     .addTo(globalMap);
-}
-
-function printAll(){
-    for(var i = 0; i<locations.length;i++){
-        generateMarker(i);
-        generateTable(i);
-    }
 }
