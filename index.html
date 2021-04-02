@@ -14,7 +14,6 @@
 
 	</head>
 	<body>
-		
         <main>
             <div id="top" class="mapSection">
             	<nav>
@@ -28,25 +27,33 @@
 				</nav>
 			</div>
             <div id="options" class="mapSection">
-    	            <button id="fly">Next location</button>
-    	            <fieldset id="testtest">
-    	            	<legend>Test</legend>
-    	            	<input type="text" name="Location" id="place"/></br>
-    	            	<input type="number" id="lon" name="lon" value="10"/>
-    	            	<input type="number" id="lat" name="lat" value="10"/>
-	    	            <button id="test" onClick="addLocation()">add location</button>
-    	            </fieldset>
-    	            <div id="allBtn"></div>
-    	            <div id="weather">
-    	            	test
-    	            </div>
-            </div>
+				<div id="weatherInformation">
+			        <fieldset id="testtest">
+			        	<legend>Test</legend>
+			        	<input type="text" name="Location" id="place"/></br>
+			        	<input type="number" id="lon" name="lon" />
+			        	<input type="number" id="lat" name="lat" />
+			            <button id="test" onClick="addLocation()">add location</button>
+			        </fieldset>
+		            <div id="allBtn"></div>
+		        	<img id="icon" src=""></img>
+		            <div id="weather"></div>
+		        	<div id="degrees"></div>
+		        	<div id="description"></div> 
+			    </div>
+			    <table id="locationTable">
+			    	<thead>
+				    	<tr>
+				    		<th>Location</th>
+				    		<th>Button</th>
+				    	</tr>
+			    	</thead>
+			    </table>
+			</div>
             <div id="map" class="mapSection"></div>
-
         </main>
         <footer>
         </footer>
   	<script type="text/javascript" src="index.js" defer></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 	</body>
 </html>

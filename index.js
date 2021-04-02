@@ -1,5 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoic2FtaGhzIiwiYSI6ImNrbWtqaXYxbTExcTcyd3E0MXZ1OGo5OGUifQ.8ETamLmQFeh7xm93DrwEKA';
 var i = 0;
+var units = 'metric';
 var locations = [
     {
         place: 'SpaceX Launchpad', 
@@ -18,13 +19,10 @@ var locations = [
     },
 
 ];
-var units = 'metric';
+
 var globalMap = getAPIdata();
 getWeatherData(i);
-printMarkers();
-printAllBtn();
-
-
+printAll();
 
 function getAPIdata() {
     var map = new mapboxgl.Map({
@@ -39,56 +37,29 @@ function getAPIdata() {
 function getWeatherData(LocationWeather){
     i = LocationWeather;
     console.log(locations[i].place);
-    var request = 'https://api.openweathermap.org/data/2.5/weather?lat='+locations[i].lon+'&lon='+locations[i].lon+'&appid=&units='+units;
+    var request = 'https://api.openweathermap.org/data/2.5/weather?lat='+locations[i].lon+'&lon='+locations[i].lon+'&appid=f07d064e82b0836d1d53f2e47c812e50&units='+units;
     fetch(request)  
-    
    
     .then(function(response) {
         return response.json();
     })
     
-   
     .then(function(response) {
-
         var degC = Math.floor(response.main.temp);
+        var icon = response.weather[0].icon;
         var weatherBox = document.getElementById('weather');
-        console.log(degC);
+        var weatherDescr = document.getElementById('description');
+        var weatherIcon = document.getElementById('icon');
+        weatherIcon.src = "http://openweathermap.org/img/w/"+icon+".png";
+        weatherDescr.innerHTML = response.weather[0].description;
         weatherBox.innerHTML = degC + '&#176;C <br>';
-        return degC;
 
+        console.log(response);
     });
 }
 
-
-function nextLaunchPad(){
-    var test = (i>=locations.length) ? i=0 : i++;
-    flyToLocation(i);
-    getWeatherData(i);
-}
-
-function addLocation(){
-    if(document.getElementById('place').value != "" || document.getElementById('place').value){
-        x = locations.length;
-        newPlace = document.getElementById('place').value;
-        newLat = document.getElementById('lat').value;
-        newLon = document.getElementById('lon').value;
-
-        console.log('place'+newPlace);
-
-        locations[x] = {
-            place: newPlace,
-            lat: newLat,
-            lon: newLon
-        };
-        generateNewBtn(x);
-        generateMarker(x);
-    }
- 
-}
-
 function goToLocation(clicked_value){
-    clicked_value = clicked_value;
-    console.log(clicked_value);
+    var clicked_value = clicked_value;
     if(clicked_value < locations.length){
         flyToLocation(clicked_value);
         getWeatherData(clicked_value);
@@ -104,51 +75,65 @@ function flyToLocation(location){
     });
 }
 
-function generateNewBtn(n){
-    var n = n;
-    var myDiv = document.getElementById('allBtn');
-    var tekst = locations[n].place;
-    var btn = document.createElement("button");
-    var span = document.createElement("span");
-    var t = document.createTextNode("location "+(n+1));
-    var linebreak = document.createElement("br");
-    var test = document.createTextNode(locations[n].place+" ");
-    
-    btn.appendChild(t);
-    btn.className = 'locationTest';
-    btn.value=n;
-    btn.addEventListener('click', function () {
-        goToLocation(this.value);
-    });
+function addLocation(){
+    newPlace = document.getElementById('place').value;
+    newLat = document.getElementById('lat').value;
+    newLon = document.getElementById('lon').value;
 
-    span.appendChild(test);
-    span.classList.add("testStyle");
-   
-    myDiv.appendChild(span);
-    myDiv.appendChild(btn);
-    myDiv.appendChild(linebreak);
+    if(newPlace !== "" && newLon !== "" && newLat !== "" ){
+        x = locations.length;
+        locations[x] = {
+            place: newPlace,
+            lat: newLat,
+            lon: newLon
+        };
+        generateNewBtn(x);
+        generateMarker(x);
+        generateTable(x);
+    }
 }
 
-function printAllBtn() {
-    document.getElementById('fly').addEventListener('click', function () {
-        nextLaunchPad();
+function generateTable(rowNumber){
+    var rowNumber = rowNumber;
+    var table = document.getElementById('locationTable');
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    var buttonTd = document.createElement('td');
+    var button = generateNewBtn(rowNumber);
+
+    buttonTd.appendChild(button);
+
+    td.appendChild(document.createTextNode(locations[rowNumber].place));
+    tr.appendChild(td);
+    tr.appendChild(buttonTd);
+    table.appendChild(tr);
+}
+
+function generateNewBtn(n){
+    var button = document.createElement('button');
+    var buttonText = document.createTextNode("Go to location");
+
+    button.className = 'locationTest';
+    button.value=n;
+    button.appendChild(buttonText);
+    button.addEventListener('click', function () {
+        goToLocation(this.value);
     });
-    for (var i = 0; i < locations.length; i++) {
-       generateNewBtn(i);
-    }
+    return button;
 }
 
 function generateMarker(x){
     x = x;
+    var tempTemp = getWeatherData(x);
     var marker = new mapboxgl.Marker()
     .setLngLat([locations[x].lat, locations[x].lon])
-    .setPopup(new mapboxgl.Popup().setText("location "+locations[x].place+" lat "+locations[x].lat + " lon " + locations[x].lon+" temp: "))
+    .setPopup(new mapboxgl.Popup().setText("location "+locations[x].place+" lat "+locations[x].lat + " lon " + locations[x].lon))
     .addTo(globalMap);
 }
 
-function printMarkers(){
+function printAll(){
     for(var i = 0; i<locations.length;i++){
         generateMarker(i);
+        generateTable(i);
     }
 }
-
