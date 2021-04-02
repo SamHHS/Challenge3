@@ -4,7 +4,7 @@ var locations = [
     {
         place: 'SpaceX Launchpad', 
         lat: 50,
-        lon: 50
+        lon: 50,
     },
      {
         place: 'NASA Launchpad', 
@@ -20,9 +20,10 @@ var locations = [
 ];
 var units = 'metric';
 var globalMap = getAPIdata();
-var globalWeather = getWeatherData(i);
+getWeatherData(i);
 printMarkers();
 printAllBtn();
+
 
 
 function getAPIdata() {
@@ -38,7 +39,7 @@ function getAPIdata() {
 function getWeatherData(LocationWeather){
     i = LocationWeather;
     console.log(locations[i].place);
-    var request = 'https://api.openweathermap.org/data/2.5/weather?lat='+locations[i].lon+'&lon='+locations[i].lon+'&appid=f07d064e82b0836d1d53f2e47c812e50&units='+units;
+    var request = 'https://api.openweathermap.org/data/2.5/weather?lat='+locations[i].lon+'&lon='+locations[i].lon+'&appid=&units='+units;
     fetch(request)  
     
    
@@ -48,15 +49,16 @@ function getWeatherData(LocationWeather){
     
    
     .then(function(response) {
-    
 
         var degC = Math.floor(response.main.temp);
-        console.log(degC);
         var weatherBox = document.getElementById('weather');
+        console.log(degC);
         weatherBox.innerHTML = degC + '&#176;C <br>';
+        return degC;
 
     });
 }
+
 
 function nextLaunchPad(){
     var test = (i>=locations.length) ? i=0 : i++;
@@ -140,7 +142,7 @@ function generateMarker(x){
     x = x;
     var marker = new mapboxgl.Marker()
     .setLngLat([locations[x].lat, locations[x].lon])
-    .setPopup(new mapboxgl.Popup().setText("location "+locations[x].place+" lat "+locations[x].lat + " lon " + locations[x].lon))
+    .setPopup(new mapboxgl.Popup().setText("location "+locations[x].place+" lat "+locations[x].lat + " lon " + locations[x].lon+" temp: "))
     .addTo(globalMap);
 }
 
@@ -149,3 +151,4 @@ function printMarkers(){
         generateMarker(i);
     }
 }
+
