@@ -4,10 +4,8 @@
 		<meta charset="UTF-8" />
 		<title>SpaceX API</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
 		<link type="text/css" href="styles/index.css" rel="stylesheet" />
-		<link type="text/css" href="styles/grid-layout.css" rel="stylesheet" />	
-
+		<!-- <link type="text/css" href="styles/grid-layout.css" rel="stylesheet" />	 -->
 		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
 		<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.js"></script>
 		<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.0/mapbox-gl.css" rel="stylesheet" />
@@ -16,8 +14,8 @@
 	<body>
         <main>
             <div id="top" class="mapSection">
+            <img src="img/logo.png" alt="logo" id="logo">
             	<nav>
-					<img src="img/logo.png" alt="logo" id="logo">
 					<ul>
 						<li><a href="#" id="home" class="active">Home</a></li>
 						<li><a href="#">SpaceX</a></li>
@@ -28,24 +26,27 @@
 			</div>
             <div id="options" class="mapSection">
 				<div id="weatherInformation">
-			        <fieldset id="testtest">
+<!-- 			        <fieldset id="testtest">
 			        	<legend>Test</legend>
 			        	<input type="text" name="Location" id="place"/></br>
 			        	<input type="number" id="lon" name="lon" />
 			        	<input type="number" id="lat" name="lat" />
 			            <button id="test" onClick="addLocation()">add location</button>
-			        </fieldset>
+			        </fieldset> -->
 		            <div id="allBtn"></div>
 		        	<img id="icon" src=""></img>
 		            <div id="weather"></div>
+		            <div id="windspeed"></div>
+		            <div id="launchCondition"></div>
 		        	<div id="degrees"></div>
 		        	<div id="description"></div> 
 			    </div>
+			    <br>
 			    <table id="locationTable">
 			    	<thead>
 				    	<tr>
-				    		<th>Location</th>
-				    		<th>Button</th>
+				    		<th>Location:</th>
+				    		<th></th>
 				    	</tr>
 			    	</thead>
 			    </table>
